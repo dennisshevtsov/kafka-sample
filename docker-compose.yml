@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  kafka-sample-web:
+    container_name: kafka-sample-web
+    image: kafka-sample-web
+    build:
+      context: .
+      dockerfile: src/KafkaSample.Web/Dockerfile
+    ports:
+      - 5001:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
