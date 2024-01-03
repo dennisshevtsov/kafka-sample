@@ -6,8 +6,9 @@
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>1307ca09-170d-4709-9f40-1bb50c86b0cf</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/{Scheme}://{ServiceHost}:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>kafkasample.web</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
+    <DockerServiceName>kafka-sample-web</DockerServiceName>
+    <DockerComposeProjectName>kafka-sample</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.yml" />

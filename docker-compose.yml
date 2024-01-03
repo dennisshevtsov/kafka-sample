@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.5'
 
 services:
   kafka-sample-web:
@@ -10,5 +10,40 @@ services:
     ports:
       - 5001:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
+  kafka-sample-zookeeper:
+    container_name: kafka-sample-zookeeper
+    image: confluentinc/cp-zookeeper:7.5.3
+    ports:
+      - 5002:5002
+    hostname: kafka-sample-zookeeper
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=5002
+      - ZOOKEEPER_TICK_TIME=2000
+  kafka-sample-kafka:
+    container_name: kafka-sample-kafka
+    image: confluentinc/cp-kafka:7.5.3
+    depends_on:
+      - kafka-sample-zookeeper
+    ports:
+      - 5003:29092
+    hostname: kafka-sample-kafka
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=kafka-sample-zookeeper:5002
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-sample-kafka:5003
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+  kafka-sample-kafka-ui:
+    container_name: kafka-sample-kafka-ui
+    image: provectuslabs/kafka-ui
+    ports:
+      - 5004:8080
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-sample-kafka:5003
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=kafka-sample-zookeeper:5002
+    links:
+      - kafka-sample-kafka
+      - kafka-sample-zookeeper
