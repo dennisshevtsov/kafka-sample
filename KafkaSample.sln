@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaSample.Web", "src\KafkaSample.Web\KafkaSample.Web.csproj", "{26E01099-65C7-4819-B594-06101A196EE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaSample.Producer", "src\KafkaSample.Producer\KafkaSample.Producer.csproj", "{26E01099-65C7-4819-B594-06101A196EE5}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1307CA09-170D-4709-9F40-1BB50C86B0CF}"
 EndProject

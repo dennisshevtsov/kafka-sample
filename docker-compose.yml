@@ -6,7 +6,7 @@ services:
     image: kafka-sample-web
     build:
       context: .
-      dockerfile: src/KafkaSample.Web/Dockerfile
+      dockerfile: src/KafkaSample.Producer/Dockerfile
     ports:
       - 5001:80
     environment:
