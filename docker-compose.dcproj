@@ -7,7 +7,7 @@
     <ProjectGuid>1307ca09-170d-4709-9f40-1bb50c86b0cf</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>kafka-sample-web</DockerServiceName>
+    <DockerServiceName>kafka-sample-kafka-ui</DockerServiceName>
     <DockerComposeProjectName>kafka-sample</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
