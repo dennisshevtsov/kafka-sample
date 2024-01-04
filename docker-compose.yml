@@ -1,24 +1,14 @@
 version: '3.5'
 
 services:
-  kafka-sample-web:
-    container_name: kafka-sample-web
-    image: kafka-sample-web
-    build:
-      context: .
-      dockerfile: src/KafkaSample.Producer/Dockerfile
-    ports:
-      - 5001:80
-    environment:
-      - ASPNETCORE_HTTP_PORTS=80
   kafka-sample-zookeeper:
     container_name: kafka-sample-zookeeper
     image: confluentinc/cp-zookeeper:7.5.3
     ports:
-      - 5002:5002
+      - 5001:5001
     hostname: kafka-sample-zookeeper
     environment:
-      - ZOOKEEPER_CLIENT_PORT=5002
+      - ZOOKEEPER_CLIENT_PORT=5001
       - ZOOKEEPER_TICK_TIME=2000
   kafka-sample-kafka:
     container_name: kafka-sample-kafka
@@ -26,12 +16,12 @@ services:
     depends_on:
       - kafka-sample-zookeeper
     ports:
-      - 5003:29092
+      - 5002:29092
     hostname: kafka-sample-kafka
     environment:
       - KAFKA_BROKER_ID=1
-      - KAFKA_ZOOKEEPER_CONNECT=kafka-sample-zookeeper:5002
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-sample-kafka:5003
+      - KAFKA_ZOOKEEPER_CONNECT=kafka-sample-zookeeper:5001
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-sample-kafka:5002
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
@@ -39,11 +29,21 @@ services:
     container_name: kafka-sample-kafka-ui
     image: provectuslabs/kafka-ui
     ports:
-      - 5004:8080
+      - 5003:8080
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
-      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-sample-kafka:5003
-      - KAFKA_CLUSTERS_0_ZOOKEEPER=kafka-sample-zookeeper:5002
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-sample-kafka:5002
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=kafka-sample-zookeeper:5001
     links:
       - kafka-sample-kafka
       - kafka-sample-zookeeper
+  kafka-sample-web:
+    container_name: kafka-sample-producer
+    image: kafka-sample-producer
+    build:
+      context: .
+      dockerfile: src/KafkaSample.Producer/Dockerfile
+    ports:
+      - 5004:80
+    environment:
+      - ASPNETCORE_HTTP_PORTS=80
