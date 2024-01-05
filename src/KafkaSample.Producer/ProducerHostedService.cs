@@ -4,12 +4,15 @@
 
 namespace KafkaSample.Producer;
 
-public sealed class ProducerHostedService : IHostedService, IDisposable
+public sealed class ProducerHostedService(ILogger<ProducerHostedService> logger) : IHostedService, IDisposable
 {
+  private readonly ILogger<ProducerHostedService> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
   private Timer? _timer;
 
   public Task StartAsync(CancellationToken cancellationToken)
   {
+    _logger.LogInformation("Producer service starting...");
     _timer = new Timer
     (
       callback: SendMessage,
@@ -17,12 +20,17 @@ public sealed class ProducerHostedService : IHostedService, IDisposable
       dueTime : TimeSpan.Zero,
       period  : TimeSpan.FromSeconds(5)
     );
+    _logger.LogInformation("Producer service started.");
+
     return Task.CompletedTask;
   }
 
   public Task StopAsync(CancellationToken cancellationToken)
   {
+    _logger.LogInformation("Producer service stopping...");
     _timer?.Change(Timeout.Infinite, 0);
+    _logger.LogInformation("Producer service stopped.");
+
     return Task.CompletedTask;
   }
 
@@ -30,6 +38,8 @@ public sealed class ProducerHostedService : IHostedService, IDisposable
 
   private void SendMessage(object? state)
   {
+    _logger.LogInformation("Producer service sending message to kafka...");
     // send message to kafka
+    _logger.LogInformation("Producer service sent message to kafka.");
   }
 }
