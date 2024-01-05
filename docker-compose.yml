@@ -37,7 +37,7 @@ services:
     links:
       - kafka-sample-kafka
       - kafka-sample-zookeeper
-  kafka-sample-web:
+  kafka-sample-producer:
     container_name: kafka-sample-producer
     image: kafka-sample-producer
     build:
@@ -45,5 +45,15 @@ services:
       dockerfile: src/KafkaSample.Producer/Dockerfile
     ports:
       - 5004:80
+    environment:
+      - ASPNETCORE_HTTP_PORTS=80
+  kafka-sample-consumer:
+    container_name: kafka-sample-consumer
+    image: kafka-sample-consumer
+    build:
+      context: .
+      dockerfile: src/KafkaSample.Consumer/Dockerfile
+    ports:
+      - 5005:80
     environment:
       - ASPNETCORE_HTTP_PORTS=80
