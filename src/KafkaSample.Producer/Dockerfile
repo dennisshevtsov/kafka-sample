@@ -1,3 +1,7 @@
+# Copyright (c) Dennis Shevtsov. All rights reserved.
+# Licensed under the MIT License.
+# See LICENSE in the project root for license information.
+
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
