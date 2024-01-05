@@ -12,7 +12,7 @@ public sealed class ProducerHostedService(ILogger<ProducerHostedService> logger)
 
   public Task StartAsync(CancellationToken cancellationToken)
   {
-    _logger.LogInformation("Producer service starting...");
+    _logger.LogInformation("Producer starting...");
     _timer = new Timer
     (
       callback: SendMessage,
@@ -20,16 +20,16 @@ public sealed class ProducerHostedService(ILogger<ProducerHostedService> logger)
       dueTime : TimeSpan.Zero,
       period  : TimeSpan.FromSeconds(5)
     );
-    _logger.LogInformation("Producer service started.");
+    _logger.LogInformation("Producer started.");
 
     return Task.CompletedTask;
   }
 
   public Task StopAsync(CancellationToken cancellationToken)
   {
-    _logger.LogInformation("Producer service stopping...");
+    _logger.LogInformation("Producer stopping...");
     _timer?.Change(Timeout.Infinite, 0);
-    _logger.LogInformation("Producer service stopped.");
+    _logger.LogInformation("Producer stopped.");
 
     return Task.CompletedTask;
   }
@@ -38,8 +38,8 @@ public sealed class ProducerHostedService(ILogger<ProducerHostedService> logger)
 
   private void SendMessage(object? state)
   {
-    _logger.LogInformation("Producer service sending message to kafka...");
+    _logger.LogInformation("Producer sending message to kafka...");
     // send message to kafka
-    _logger.LogInformation("Producer service sent message to kafka.");
+    _logger.LogInformation("Producer sent message to kafka.");
   }
 }
