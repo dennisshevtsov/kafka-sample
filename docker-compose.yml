@@ -51,6 +51,7 @@ services:
       - 5004:80
     environment:
       - ASPNETCORE_HTTP_PORTS=80
+      - KAFKA__BOOTSTRAPSERVERS=kafka-sample-kafka:5002
   kafka-sample-consumer:
     container_name: kafka-sample-consumer
     image: kafka-sample-consumer
@@ -61,3 +62,4 @@ services:
       - 5005:80
     environment:
       - ASPNETCORE_HTTP_PORTS=80
+      - KAFKA__BOOTSTRAPSERVERS=kafka-sample-kafka:5002
