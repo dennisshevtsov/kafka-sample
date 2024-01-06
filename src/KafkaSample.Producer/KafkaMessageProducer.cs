@@ -32,16 +32,19 @@ public sealed class KafkaMessageProducer(IProducer<Null, string> producer, ILogg
         if (report.Status == PersistenceStatus.NotPersisted)
         {
           _logger.LogWarning("Sending kafka message failed.");
+          return;
         }
 
         if (report.Status == PersistenceStatus.PossiblyPersisted)
         {
           _logger.LogWarning("Sending kafka message possibly failed.");
+          return;
         }
 
         if (report.Status == PersistenceStatus.Persisted)
         {
           _logger.LogInformation("Kafka message sent.");
+          return;
         }
       }
     );
