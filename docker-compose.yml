@@ -51,6 +51,12 @@ services:
       - 5004:80
     environment:
       - ASPNETCORE_HTTP_PORTS=80
+      - KAFKA__BOOTSTRAPSERVERS=kafka-sample-kafka:5002
+      #- KAFKA__BLAH=SDf
+      #- KAFKA__SASLMECHANISM=Plain
+      #- KAFKA__SECURITYPROTOCOL=SaslSsl
+      #- KAFKA_SASLUSERNAME=
+      #- KAFKA_SASLPASSWORD=
   kafka-sample-consumer:
     container_name: kafka-sample-consumer
     image: kafka-sample-consumer
@@ -61,8 +67,8 @@ services:
       - 5005:80
     environment:
       - ASPNETCORE_HTTP_PORTS=80
-      - KAFKA_BOOTSTRAPSERVERS=
-      - KAFKA_SASLMECHANISM=Plain
-      - KAFKA_SECURITYPROTOCOL=SaslSsl
-      - KAFKA_SASLUSERNAME=
-      - KAFKA_SASLPASSWORD=
+      - KAFKA__BOOTSTRAPSERVERS=host.docker.internal:5002
+      - KAFKA__SASLMECHANISM=Plain
+      - KAFKA__SECURITYPROTOCOL=SaslSsl
+      #- KAFKA_SASLUSERNAME=
+      #- KAFKA_SASLPASSWORD=

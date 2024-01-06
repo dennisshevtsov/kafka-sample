@@ -4,9 +4,10 @@
 
 namespace KafkaSample.Producer;
 
-public sealed class ProducerHostedService(ILogger<ProducerHostedService> logger) : IHostedService, IDisposable
+public sealed class ProducerHostedService(KafkaMessageProducer producer, ILogger<ProducerHostedService> logger) : IHostedService, IDisposable
 {
-  private readonly ILogger<ProducerHostedService> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+  private readonly KafkaMessageProducer         _producer = producer ?? throw new ArgumentNullException(nameof(producer));
+  private readonly ILogger<ProducerHostedService> _logger = logger   ?? throw new ArgumentNullException(nameof(logger));
 
   private Timer? _timer;
 
@@ -39,7 +40,7 @@ public sealed class ProducerHostedService(ILogger<ProducerHostedService> logger)
   private void SendMessage(object? state)
   {
     _logger.LogInformation("Producer sending message to kafka...");
-    // send message to kafka
+    _producer.Hello();
     _logger.LogInformation("Producer sent message to kafka.");
   }
 }
