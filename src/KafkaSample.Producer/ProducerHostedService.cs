@@ -29,7 +29,11 @@ public sealed class ProducerHostedService(KafkaMessageProducer producer, ILogger
   public Task StopAsync(CancellationToken cancellationToken)
   {
     _logger.LogInformation("Producer stopping...");
-    _timer?.Change(Timeout.Infinite, 0);
+    _timer?.Change
+    (
+      dueTime: Timeout.Infinite,
+      period : 0
+    );
     _logger.LogInformation("Producer stopped.");
 
     return Task.CompletedTask;

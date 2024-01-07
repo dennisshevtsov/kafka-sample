@@ -52,6 +52,7 @@ services:
     environment:
       - ASPNETCORE_HTTP_PORTS=80
       - KAFKA__BOOTSTRAPSERVERS=kafka-sample-kafka:5002
+      - PUBLISHING_TOPIC=kafka-sample-topic
   kafka-sample-consumer:
     container_name: kafka-sample-consumer
     image: kafka-sample-consumer
@@ -63,3 +64,5 @@ services:
     environment:
       - ASPNETCORE_HTTP_PORTS=80
       - KAFKA__BOOTSTRAPSERVERS=kafka-sample-kafka:5002
+      - KAFKA__GROUPID=kafka-sample-consumer
+      - LISTENING_TOPIC=kafka-sample-topic
