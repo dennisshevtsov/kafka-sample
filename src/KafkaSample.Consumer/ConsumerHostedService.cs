@@ -3,7 +3,6 @@
 // See LICENSE in the project root for license information.
 
 using Confluent.Kafka;
-using static Confluent.Kafka.ConfigPropertyNames;
 
 namespace KafkaSample.Consumer;
 
