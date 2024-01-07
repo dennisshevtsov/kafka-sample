@@ -11,9 +11,7 @@ builder.Services.AddSingleton((IServiceProvider provider) =>
   ProducerConfig config = builder.Configuration.GetSection("Kafka").Get<ProducerConfig>() ??
                           throw new Exception("No kafka producer config section: 'Kafka'.");
   IProducer<Null, string> producer = new ProducerBuilder<Null, string>(config).Build();
-
   ILogger<KafkaMessageProducer> logger = provider.GetRequiredService<ILogger<KafkaMessageProducer>>();
-
   KafkaMessageProducer messageProducer = new(producer, logger);
 
   return messageProducer;
