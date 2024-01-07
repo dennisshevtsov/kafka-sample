@@ -6,9 +6,10 @@ using Confluent.Kafka;
 
 namespace KafkaSample.Producer;
 
-public sealed class KafkaMessageProducer(IProducer<Null, string> producer, ILogger<KafkaMessageProducer> logger)
+public sealed class KafkaMessageProducer(IProducer<Null, string> producer, string topic, ILogger<KafkaMessageProducer> logger)
 {
   private readonly IProducer<Null, string>     _producer = producer ?? throw new ArgumentNullException(nameof(producer));
+  private readonly string                         _topic = topic    ?? throw new ArgumentNullException(nameof(topic))   ;
   private readonly ILogger<KafkaMessageProducer> _logger = logger   ?? throw new ArgumentNullException(nameof(logger))  ;
 
   public void Hello()
@@ -16,7 +17,7 @@ public sealed class KafkaMessageProducer(IProducer<Null, string> producer, ILogg
     _logger.LogInformation("Kafka message sending...");
     _producer.Produce
     (
-      topic          : "kafka-sample-topic",
+      topic          : _topic,
       message        : new Message<Null, string>
       {
         Value = "Hello world!",
