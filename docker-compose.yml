@@ -63,3 +63,5 @@ services:
     environment:
       - ASPNETCORE_HTTP_PORTS=80
       - KAFKA__BOOTSTRAPSERVERS=kafka-sample-kafka:5002
+      - KAFKA__GROUPID=kafka-sample-consumer
+      - LISTENING_TOPIC=kafka-sample-topic
